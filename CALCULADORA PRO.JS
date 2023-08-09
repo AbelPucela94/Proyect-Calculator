@@ -4,7 +4,7 @@ let getListNumbers = [];
 
 
 getUserName = prompt('Introduce tu nombre: ')
-alert(`¡Bienvenido a la CODER Calculadora, ${getUserName.toUpperCase()}!`);
+alert(`¡Bienvenid@ a la CODER Calculadora, ${getUserName.toUpperCase()}!`);
 
 
 const getFirstNumber = () => {
