@@ -4,7 +4,7 @@ let getListNumbers = [];
 
 
 getUserName = prompt('Introduce tu nombre: ')
-alert(`¡Bienvenid@ a la CODER Calculadora, ${getUserName.toUpperCase()}!`);
+alert(`¡Bienvenido a la CODER Calculadora, ${getUserName.toUpperCase()}!`);
 
 
 const getFirstNumber = () => {
@@ -88,9 +88,9 @@ const getSum = () => {
 
 
 const getRest = () => {
-    let totalRest = 0;
-    for (let number of getListNumbers) {
-        totalRest -= parseFloat(number);
+    let totalRest = getListNumbers[0];
+    for (let i = 1; i < getListNumbers.length; i++) {
+        totalRest -= parseFloat(getListNumbers[i]);
     };
     console.log(`La resta es: ${totalRest.toFixed(3)}`);
     console.log(`Lista: ${getListNumbers.join('|')}`);
@@ -109,10 +109,10 @@ const getMultiplier = () => {
 
 const getDivision = () => {
     let totalDivision = getListNumbers[0];
-    for (let i = 0; i < getListNumbers.length; i++) {
+    for (let i = 1; i < getListNumbers.length; i++) {
         totalDivision /= parseFloat(getListNumbers[i]);
     };
-    console.log(`La división es: ${totalDivision.toFixed(3)}`);
+    console.log(`La división es: ${totalDivision}`);
     console.log(`Lista: ${getListNumbers.join('|')}`);
 };
 
