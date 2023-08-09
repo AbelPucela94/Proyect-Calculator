@@ -1,117 +1,126 @@
-let getFirstNumber;
-let getSecondNumber = '';
+let getNumber = '';
 let getUserName = '';
-let getOperationList = [];
+let getListNumbers = [];
 
 
 getUserName = prompt('Introduce tu nombre: ')
 alert(`¡Bienvenido a la CODER Calculadora, ${getUserName.toUpperCase()}!`);
 
 
-const getCalculator = () =>{
-    getFirstNumber = parseFloat(prompt('Ingrese el primer número:  '));
-    if (isNaN(getFirstNumber) || getFirstNumber === '') {
-        alert('Por favor, introduce un número válido');
-        getCalculator();
+const getFirstNumber = () => {
+    getNumber = parseFloat(prompt('Introduzca un número:  '));
+    if (isNaN(getNumber) || getNumber === '') {
+        alert('Por favor, ingrese un número válido');
+        getFirstNumber();
         return;
     };
-    getOperationList.push(getFirstNumber);
-    
-    
-    getSecondNumber = prompt('Ingrese otro número o pulse "INTRO" para calcular SÓLO la raiz cuadrada del primer número:  ');
-    if (getSecondNumber === '') {
-        getSquareRoot();
-        return;
-    };
-    
-    getSecondNumber = parseFloat(getSecondNumber);
-    if (isNaN(getSecondNumber)) {
-        alert('Por favor, introduce un número válido');
-        getCalculator();
-        return;
-    };
-    getOperationList.push(getSecondNumber);
+    getListNumbers.push(getNumber);
+    getAnotherNumbers();
+};
 
-    
+
+const getAnotherNumbers = () => {
+    let getAnotherNumber = confirm('Pulse ACEPTAR si desea introducir otro número o CANCELAR para calcular SOLO la raíz cuadrada del número indicado anteriormente');
+    if (getAnotherNumber === true) {
+        getRestNumbers();
+    } else {
+        getSquareRoot();
+    };
+};
+
+
+const getRestNumbers = () => {
+    getNumber = parseFloat(prompt('Introduzca otro número:  '));
+    if (isNaN(getNumber) || getNumber === '') {
+        alert('Por favor, ingrese un número válido');
+        getRestNumbers();
+        return;
+    };
+    getListNumbers.push(getNumber);
+    let askMoreNumbers = confirm('Pulse ACEPTAR para añadir más números o CANCELAR para realizar los cálculos con los números dados')
+    if (askMoreNumbers === true) {
+        getRestNumbers();
+        return;
+    } else {
+        getCalculator();
+    };
+};
+
+
+const getCalculator = () =>{
+
     alert('Recalculando operaciones... ¡Imprimiendo soluciones!')
     
-    console.log('                  🧮   CALCULADORA   🧮                       ');
-    console.log('- - - - - - - - - - - -  - -');
+    console.log('                    🧮   CALCULADORA   🧮                  ');
+    console.log('---------------------------------------------------------------');
     getSum();
-    console.log('- - - - - - - - - - - -  - -');
+    console.log('---------------------------------------------------------------');
     getRest();
-    console.log('- - - - - - - - - - - -  - -');
+    console.log('---------------------------------------------------------------');
     getMultiplier();
-    console.log('- - - - - - - - - - - -  - -');
+    console.log('---------------------------------------------------------------');
     getDivision();
-    console.log('- - - - - - - - - - - -  - -');
+    console.log('---------------------------------------------------------------');
     
     getAnotherOperation();
 };
 
 
 const getSquareRoot = () => {
-    let doTheSquareRoot = Math.sqrt(getFirstNumber);
-    console.log('                  🧮   CALCULADORA   🧮                       ');
-    console.log('- - - - - - - - - - - -  - -');
+    let doTheSquareRoot = Math.sqrt(getNumber);
+    console.log('                    🧮   CALCULADORA   🧮                  ');
+    console.log('---------------------------------------------------------------');
     console.log(`La RAIZ CUADRADA del número introducido es: ${doTheSquareRoot.toFixed(3)}`);
-    console.log(`Lista: ${getOperationList.join('|')}`);
+    console.log(`Lista: ${getListNumbers.join('|')}`);
+    console.log('---------------------------------------------------------------');
     getAnotherOperation();
 };
 
 
 const getSum = () => {
-    let getSumOperation = getFirstNumber + getSecondNumber;
-    console.log(`La suma es: ${getSumOperation.toFixed(3)}`);
-    console.log(`Lista: ${getOperationList.join('|')}`);
     let totalSum = 0;
-    for (let number of getOperationList) {
+    for (let number of getListNumbers) {
         totalSum += parseFloat(number);
     };
-    console.log(`TOTAL Introducidos: ${totalSum.toFixed(3)}`);
+    console.log(`La suma es: ${totalSum.toFixed(3)}`);
+    console.log(`Lista: ${getListNumbers.join('|')}`);
 };
 
 
 const getRest = () => {
-    let getRestOperation = getFirstNumber - getSecondNumber;
-    console.log(`La resta es: ${getRestOperation.toFixed(3)}`);
-    console.log(`Lista: ${getOperationList.join('|')}`);
     let totalRest = 0;
-    for (let number of getOperationList) {
+    for (let number of getListNumbers) {
         totalRest -= parseFloat(number);
     };
-    console.log(`TOTAL Introducidos: ${totalRest.toFixed(3)}`);
+    console.log(`La resta es: ${totalRest.toFixed(3)}`);
+    console.log(`Lista: ${getListNumbers.join('|')}`);
 };
 
 
 const getMultiplier = () => {
-    let getMultiplierOperation = getFirstNumber * getSecondNumber;
-    console.log(`La multiplicación es: ${getMultiplierOperation.toFixed(3)}`);
-    console.log(`Lista: ${getOperationList.join('|')}`);
-    let totalMultiplication = 0;
-    for (let number of getOperationList) {
+    let totalMultiplication = 1;
+    for (let number of getListNumbers) {
         totalMultiplication *= parseFloat(number);
     };
-    console.log(`TOTAL Introducidos: ${totalMultiplication.toFixed(3)}`);
+    console.log(`La multiplicación es: ${totalMultiplication.toFixed(3)}`);
+    console.log(`Lista: ${getListNumbers.join('|')}`);
 };
 
 
 const getDivision = () => {
-    let getDivisionOperation = getFirstNumber / getSecondNumber;
-    console.log(`La división es: ${getDivisionOperation.toFixed(3)}`);
-    console.log(`Lista: ${getOperationList.join('|')}`);
-    let totalDivision = 0;
-    for (let number of getOperationList) {
-        totalDivision /= parseFloat(number);
+    let totalDivision = getListNumbers[0];
+    for (let i = 0; i < getListNumbers.length; i++) {
+        totalDivision /= parseFloat(getListNumbers[i]);
     };
-    console.log(`TOTAL Introducidos: ${totalDivision.toFixed(3)}`);
+    console.log(`La división es: ${totalDivision.toFixed(3)}`);
+    console.log(`Lista: ${getListNumbers.join('|')}`);
 };
 
 
 const getAnotherOperation = () => {
     let isAnotherOperation = confirm('Pulse ACEPTAR para más operaciones o CANCELAR para salir')
     if (isAnotherOperation === true) {
-        getCalculator();
+        getFirstNumber();
     } else {
         isExit();
     };
@@ -124,4 +133,4 @@ const isExit = () => {
 
 
 
-getCalculator();
+getFirstNumber();
