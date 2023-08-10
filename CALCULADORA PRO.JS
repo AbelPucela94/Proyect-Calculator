@@ -112,7 +112,7 @@ const getDivision = () => {
     for (let i = 1; i < getListNumbers.length; i++) {
         totalDivision /= parseFloat(getListNumbers[i]);
     };
-    console.log(`La división es: ${totalDivision}`);
+    console.log(`La división es: ${totalDivision.toFixed(3)}`);
     console.log(`Lista: ${getListNumbers.join('|')}`);
 };
 
@@ -120,6 +120,7 @@ const getDivision = () => {
 const getAnotherOperation = () => {
     let isAnotherOperation = confirm('Pulse ACEPTAR para más operaciones o CANCELAR para salir')
     if (isAnotherOperation === true) {
+        getListNumbers.splice(0)
         getFirstNumber();
     } else {
         isExit();
